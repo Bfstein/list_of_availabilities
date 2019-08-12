@@ -1,0 +1,54 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form name="myForm" action ="/n-a" target="frame" onsubmit="return acceptInput()">
+  Date Range From: (YYYY-MM-DD): <input type="text" name="date">     <br>
+  Date Range To:   (YYYY-MM-DD): <input type="text" name="date2">    <br>
+  <p>Length: </p>
+  <input type="radio" name="length" value="15" checked> 15 mins <br>
+  <input type="radio" name="length" value="30"> 30 mins         <br>
+  <input type="radio" name="length" value="60"> 1 hour          <br>
+<input type="submit" value="Submit">
+</form>
+
+<script>
+
+	/**
+	 * accepts the form and displays an alert
+	 */
+	function acceptInput() {
+	  var startDate     = document.forms["myForm"]["date"].value;
+	  var endDate       = document.forms["myForm"]["date2"].value;
+	  var meetingLength = document.forms["myForm"]["length"].value;
+
+	  output = "Hello! I'll find you a time to meet for " + meetingLength +
+	            " mins between " + startDate + " and " + endDate;
+
+
+	  var myInput = {
+	    'startDate': startDate,
+	    'endDate'  : endDate,
+	    'length'   : meetingLength
+	  };
+
+	  alert(output);
+
+	  listCalendars(myInput, getBusyTimes, getAvailableTimes);
+
+	}
+
+</script>
