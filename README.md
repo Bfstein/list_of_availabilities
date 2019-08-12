@@ -3,4 +3,4 @@ List of availabilities
 
 Start the server with this command:
 
-python -m SimpleHTTPServer 800
+python -m SimpleHTTPServer 8000
