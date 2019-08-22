@@ -15,6 +15,11 @@
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
 
+    <br>
+
+    <p id="transformDestination">
+    <p id="transformDestination2">
+
     <br><br>
 
     <form id="myForm" name="myForm" action ="/n-a" target="frame" onsubmit="return acceptInput()">
@@ -444,8 +449,6 @@
        */
       function createForm() {
 
-      	console.log (Sugar.Date.create('tomorrow'));
-
       	var oldForm = document.getElementById('myForm');
 
       	var request = gapi.client.calendar.calendarList.list();
@@ -535,7 +538,70 @@
             endDate = _endDate;
             updateEndDate();
         }
+
+
+        function sugarTransform(textDate, picker) {
+
+        	var sugarDate = Sugar.Date.create(textDate);
+
+        	if (Sugar.Date.isValid(sugarDate)) {
+        		picker.setDate(sugarDate, true);
+        	}
+
+        	return sugarDate;
+        }
+         
+        function set(el,text){
+         while(el.firstChild)el.removeChild(el.firstChild);
+         el.appendChild(document.createTextNode(text))}
+         
+        /* setupUpdater will be called once, on page load.
+         */
+         
+        function setupUpdater(){
+         var startTextInput=document.getElementById('startpicker')
+           , endTextInput=document.getElementById('endpicker') 
+           , transformed=document.getElementById('transformDestination')
+           , transformed2=document.getElementById('transformDestination2')
+           , timeout=null;
+         
+        /* handleChange is called 50ms after the user stops 
+           typing. */
+         function handleChange(){
+
+          if (this == startTextInput) {
+          	var newStartText = startTextInput.value;
+          	set(transformed, sugarTransform(newStartText, startPicker));
+          	console.log("startpicker");
+          } else {
+          	var newEndText   = endTextInput.value;
+          	set(transformed2, sugarTransform(newEndText, endPicker));
+          	console.log("endpicker");
+          }
+
+         }
+         
+        /* eventHandler is called on keyboard and mouse events.
+           If there is a pending timeout, it cancels it.
+           It sets a timeout to call handleChange in 50ms. */
+         function eventHandler(){
+          if(timeout) clearTimeout(timeout);
+          timeout=setTimeout(handleChange, 50);
+         }
+         
+         startTextInput.addEventListener("focusout", handleChange);
+         endTextInput.addEventListener("focusout", handleChange);
+        }
+         
+        setupUpdater();
+        //document.getElementById('startpicker').focus();
+
     </script>
+
+    <script>
+
+
+	</script>
 
 
 
