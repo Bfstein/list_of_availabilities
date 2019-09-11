@@ -76,11 +76,9 @@ var startDate,
       if (this == startTextInput) {
       	var newStartText = startTextInput.value;
       	set(transformed, sugarTransform(newStartText, startPicker));
-      	console.log("startpicker");
       } else {
       	var newEndText   = endTextInput.value;
       	set(transformed2, sugarTransform(newEndText, endPicker));
-      	console.log("endpicker");
       }
 
      }
@@ -98,4 +96,5 @@ var startDate,
     }
      
     setupUpdater();
-    //document.getElementById('startpicker').focus();
+
+
